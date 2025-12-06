@@ -1,0 +1,3 @@
+Build path: D:/Drafts/Slime Seller
+Build number: 112
+PluginYG version: 2.005
