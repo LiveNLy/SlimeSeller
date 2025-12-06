@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Respawn : Effect
 {
-    private SlimeSpawner _spawner;
+    private BasketSpawnerForRecordMode _spawner;
 
     public override void SetTool(Tool spawner)
     {
-        _spawner = (SlimeSpawner)spawner;
+        _spawner = (BasketSpawnerForRecordMode)spawner;
     }
 
     public override void ApplyEffect()

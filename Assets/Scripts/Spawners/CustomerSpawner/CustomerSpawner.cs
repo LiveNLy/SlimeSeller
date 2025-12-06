@@ -9,7 +9,7 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] protected Transform _positionToStay;
     [SerializeField] protected List<Customer> _customerPrefabs;
     [SerializeField] protected AudioSource _customerSound;
-    [SerializeField] private SlimeSpawner _slimeSpawner;
+    [SerializeField] private BasketSpawnerForRecordMode _slimeSpawner;
     [SerializeField] private OrderCounter _orderCounter;
 
     protected Customer _spawnedCustomer;
@@ -58,7 +58,7 @@ public class CustomerSpawner : MonoBehaviour
 
     public virtual void SetValues(BaseBasketSpawner spawner)
     {
-        _slimeSpawner = (SlimeSpawner)spawner;
+        _slimeSpawner = (BasketSpawnerForRecordMode)spawner;
         _slimeSpawner.Spawning += SpawnCustomer;
     }
 

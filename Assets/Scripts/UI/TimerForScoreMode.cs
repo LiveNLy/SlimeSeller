@@ -5,7 +5,7 @@ using YG;
 public class TimerForScoreMode : Tool, ITimer
 {
     [SerializeField] private TextMeshProUGUI _textTimer;
-    [SerializeField] private SlimeSpawner _slimeSpawner;
+    [SerializeField] private BasketSpawnerForRecordMode _slimeSpawner;
     [SerializeField] private CustomerSpawner _customerSpawner;
     [SerializeField] private Score _score;
     [SerializeField] private RestarWindow _restartWindow;

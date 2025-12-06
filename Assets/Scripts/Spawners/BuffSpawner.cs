@@ -8,7 +8,7 @@ public class BuffSpawner : MonoBehaviour
     [SerializeField] private RectTransform _spawnArea;
     [SerializeField] private TimerForScoreMode _timer;
     [SerializeField] private PlusCoins _coins;
-    [SerializeField] private SlimeSpawner _slimeSpawner;
+    [SerializeField] private BasketSpawnerForRecordMode _slimeSpawner;
 
     private Coroutine _coroutine;
     private WaitForSeconds _wait = new WaitForSeconds(7);
