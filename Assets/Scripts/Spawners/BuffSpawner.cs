@@ -1,70 +1,76 @@
 using System.Collections;
 using System.Collections.Generic;
+using Buffs;
+using Spawners.ForBasketSpawner;
+using UI;
 using UnityEngine;
 
-public class BuffSpawner : MonoBehaviour
+namespace Spawners
 {
-    [SerializeField] private List<Effect> _buffs = new List<Effect>();
-    [SerializeField] private RectTransform _spawnArea;
-    [SerializeField] private TimerForScoreMode _timer;
-    [SerializeField] private PlusCoins _coins;
-    [SerializeField] private BasketSpawnerForRecordMode _slimeSpawner;
-
-    private Coroutine _coroutine;
-    private WaitForSeconds _wait = new WaitForSeconds(7);
-
-    private void Start()
+    public class BuffSpawner : MonoBehaviour
     {
-        _coroutine = StartCoroutine(Spawn());
-    }
+        [SerializeField] private List<BuffClick> _buffs = new List<BuffClick>();
+        [SerializeField] private RectTransform _spawnArea;
+        [SerializeField] private TimerForScoreMode _timer;
+        [SerializeField] private PlusCoins _coins;
+        [SerializeField] private BasketSpawnerForRecordMode _slimeSpawner;
 
-    private void StartSpawn()
-    {
-        Effect randomBuff = _buffs[Random.Range(0, _buffs.Count)];
-        Effect newBuff = Instantiate(randomBuff, _spawnArea);
-        SetToolToBuff(newBuff);
+        private Coroutine _coroutine;
+        private WaitForSeconds _wait = new WaitForSeconds(7);
 
-        RectTransform buffRect = newBuff.GetComponent<RectTransform>();
-
-        if (buffRect != null)
+        private void Start()
         {
-            Vector2 randomPosition = GetRandomPosition();
-            buffRect.anchoredPosition = randomPosition;
+            _coroutine = StartCoroutine(Spawn());
         }
-    }
 
-    private void SetToolToBuff(Effect buff)
-    {
-        switch (buff)
+        private void StartSpawn()
         {
-            case (PlusTimer):
-                buff.SetTool(_timer);
-                break;
-            case (CoinsBuff):
-                buff.SetTool(_coins);
-                break;
-            case (Respawn):
-                buff.SetTool(_slimeSpawner);
-                break;
+            BuffClick randomBuff = _buffs[Random.Range(0, _buffs.Count)];
+            BuffClick newBuff = Instantiate(randomBuff, _spawnArea);
+            SetToolToBuff(newBuff);
+
+            RectTransform buffRect = newBuff.GetComponent<RectTransform>();
+
+            if (buffRect != null)
+            {
+                Vector2 randomPosition = GetRandomPosition();
+                buffRect.anchoredPosition = randomPosition;
+            }
         }
-    }
 
-    private Vector2 GetRandomPosition()
-    {
-        Vector2 areaSize = _spawnArea.rect.size;
-
-        float randomX = Random.Range(-areaSize.x / 2, areaSize.x / 2);
-
-        return new Vector2(randomX, areaSize.y);
-    }
-
-    private IEnumerator Spawn()
-    {
-        while (enabled)
+        private void SetToolToBuff(BuffClick buff)
         {
-            StartSpawn();
+            switch (buff)
+            {
+                case PlusTimer:
+                    buff.SetTool(_timer);
+                    break;
+                case CoinsBuff:
+                    buff.SetTool(_coins);
+                    break;
+                case Respawn:
+                    buff.SetTool(_slimeSpawner);
+                    break;
+            }
+        }
 
-            yield return _wait;
+        private Vector2 GetRandomPosition()
+        {
+            Vector2 areaSize = _spawnArea.rect.size;
+
+            float randomX = Random.Range(-areaSize.x / 2, areaSize.x / 2);
+
+            return new Vector2(randomX, areaSize.y);
+        }
+
+        private IEnumerator Spawn()
+        {
+            while (enabled)
+            {
+                StartSpawn();
+
+                yield return _wait;
+            }
         }
     }
 }

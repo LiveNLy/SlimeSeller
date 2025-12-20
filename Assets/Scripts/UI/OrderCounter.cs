@@ -1,26 +1,29 @@
-using TMPro;
+using ForLevels;
 using UnityEngine;
 
-public class OrderCounter : CounterForLevels
+namespace UI
 {
-    [SerializeField] private Score _score;
-
-    private int _customersToScore = 5;
-
-    public override void OnStart()
+    public class OrderCounter : CounterForLevels
     {
-        _ordersCount = 0;
-        _text.text = _ordersCount.ToString();
-    }
+        [SerializeField] private Score _score;
 
-    public override void AddScore()
-    {
-        _ordersCount++;
-        _text.text = _ordersCount.ToString();
-    }
+        private int _customersToScore = 5;
 
-    public void ConvertOnEnd(float timerNumber )
-    {
-        _score.AddScore(_ordersCount * _customersToScore);
+        public override void OnStart()
+        {
+            _ordersCount = 0;
+            _text.text = _ordersCount.ToString();
+        }
+
+        public override void AddScore()
+        {
+            _ordersCount++;
+            _text.text = _ordersCount.ToString();
+        }
+
+        public void ConvertOnEnd(float timerNumber)
+        {
+            _score.AddScore(_ordersCount * _customersToScore);
+        }
     }
 }

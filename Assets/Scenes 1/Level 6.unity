@@ -479,7 +479,6 @@ MonoBehaviour:
   - {fileID: 4420643554098422857, guid: 930e68a4be72b364baa7661d80760d2f, type: 3}
   - {fileID: 3461972230193858629, guid: 96b602ef4b4cfc44d93b89d3dd430434, type: 3}
   _customerSound: {fileID: 803796734}
-  _counter: {fileID: 30910696}
   _slimeSpawner: {fileID: 0}
   _orderCounter: {fileID: 0}
 --- !u!1 &73029582
@@ -18318,6 +18317,7 @@ MonoBehaviour:
   _standartTimerTime: 0
   _winSound: {fileID: 1554127219}
   _restartButton: {fileID: 307084823}
+  _timescaler: {fileID: 1724569743}
 --- !u!114 &726066334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29102,7 +29102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectSound: {fileID: 2002139990}
   _doneSound: {fileID: 768648734}
-  _buffPanel: {fileID: 0}
   _gameCanvas: {fileID: 943317578}
   _counterForLevels: {fileID: 30910696}
   _customerSpawner: {fileID: 58394383}
@@ -34147,11 +34146,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 943317573}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba6015270ea3a14c824b73bbd3182c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0699654ed2834b74d92c6f88f288b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _pause: {fileID: 1670590720}
   _button: {fileID: 943317575}
+  _timescaler: {fileID: 1724569743}
 --- !u!114 &943317576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87321,6 +87321,7 @@ MonoBehaviour:
   _restartWindow: {fileID: 809333765}
   _mainmenuAmbient: {fileID: 0}
   _scoreModeAmbient: {fileID: 0}
+  _timescaler: {fileID: 1724569743}
 --- !u!114 &1670590721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92924,6 +92925,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723341531}
   m_CullTransparentMesh: 1
+--- !u!1 &1724569742
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724569744}
+  - component: {fileID: 1724569743}
+  m_Layer: 5
+  m_Name: TimescaleChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1724569743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724569742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5972e34498a3e3f418877f09b04c031f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1724569744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724569742}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0400391, y: -0.2800293, z: -21.340088}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1768353602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -114914,3 +114959,4 @@ SceneRoots:
   - {fileID: 1548678801}
   - {fileID: 810661328}
   - {fileID: 252550713}
+  - {fileID: 1724569744}

@@ -1,3 +1,6 @@
 using UnityEngine;
 
-public class Point : MonoBehaviour { }
+namespace UI
+{
+    public class Point : MonoBehaviour { }
+}

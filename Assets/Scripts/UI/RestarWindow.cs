@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public class RestarWindow : MonoBehaviour 
+namespace UI
 {
-    [SerializeField] private OnLevelWin _onLevelWin;
-
-    public void SetStatsWindow()
+    public class RestarWindow : MonoBehaviour
     {
-        _onLevelWin = GetComponent<OnLevelWin>();
-    }
+        [SerializeField] private OnLevelWin _onLevelWin;
 
-    public void SetStats()
-    {
-        _onLevelWin.SetStats();
+        public void SetStatsWindow()
+        {
+            _onLevelWin = GetComponent<OnLevelWin>();
+        }
+
+        public void SetStats()
+        {
+            _onLevelWin.SetStats();
+        }
     }
 }

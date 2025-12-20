@@ -1,20 +1,25 @@
+using BasketsStuff;
+using Slimes;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+namespace ForLevels
 {
-    [SerializeField] private SpriteRenderer _lock;
-    [SerializeField] private SpriteRenderer _blocked;
-    [SerializeField] private Basket _basket;
-
-    private void OnTriggerEnter(Collider other)
+    public class Trap : MonoBehaviour
     {
-        if(other.gameObject.TryGetComponent<Slime>(out Slime slime))
+        [SerializeField] private SpriteRenderer _lock;
+        [SerializeField] private SpriteRenderer _blocked;
+        [SerializeField] private Basket _basket;
+
+        private void OnTriggerEnter(Collider other)
         {
-            _lock.gameObject.SetActive(false);
-            _blocked.gameObject.SetActive(true);
-            Destroy(_basket.GetComponent<BasketMover>());
-            Destroy(_basket.GetComponent<PositionSetter>());
-            _basket.Block();
+            if (other.gameObject.TryGetComponent<Slime>(out Slime slime))
+            {
+                _lock.gameObject.SetActive(false);
+                _blocked.gameObject.SetActive(true);
+                Destroy(_basket.GetComponent<BasketMover>());
+                Destroy(_basket.GetComponent<PositionSetter>());
+                _basket.Block();
+            }
         }
     }
 }

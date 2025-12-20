@@ -1,3 +1,6 @@
 using UnityEngine;
 
-public class SideMenu : MonoBehaviour { }
+namespace UI
+{
+    public class SideMenu : MonoBehaviour { }
+}

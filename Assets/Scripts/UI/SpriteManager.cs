@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpriteManager : MonoBehaviour
+namespace UI
 {
-    public Sprite LoadSprite(string savedSpriteName)
+    public class SpriteManager : MonoBehaviour
     {
-        Sprite loadedSprite = Resources.Load<Sprite>("CharacterSprites/" + savedSpriteName);
-        return loadedSprite;
+        public Sprite LoadSprite(string savedSpriteName)
+        {
+            Sprite loadedSprite = Resources.Load<Sprite>("CharacterSprites/" + savedSpriteName);
+            return loadedSprite;
+        }
     }
 }

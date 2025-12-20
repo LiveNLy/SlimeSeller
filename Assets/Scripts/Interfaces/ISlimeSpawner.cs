@@ -1,11 +1,15 @@
 using System;
 using UnityEngine;
+using Slimes;
 
-public interface ISlimeSpawner
+namespace Interfaces
 {
-    public event Action Spawning;
+    public interface ISlimeSpawner
+    {
+        public event Action Spawning;
 
-    public bool DeleteSlimeFromList(Slime slime);
+        public bool DeleteSlimeFromList(Slime slime);
 
-    public Color RandomColor();
+        public Color RandomColor();
+    }
 }

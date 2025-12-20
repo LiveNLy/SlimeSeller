@@ -1,23 +1,26 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelChanger : MonoBehaviour
+namespace ForYandex
 {
-    [SerializeField] private int _neededLevel = 1;
-    [SerializeField] private bool _isEnabled = true;
-
-    public int NeededLevel => _neededLevel;
-
-    public void SetIsEnabled(bool isEnabled)
+    public class LevelChanger : MonoBehaviour
     {
-        _isEnabled = isEnabled;
-    }
+        [SerializeField] private int _neededLevel = 1;
+        [SerializeField] private bool _isEnabled = true;
 
-    public void OnLevel()
-    {
-        if (_isEnabled)
+        public int NeededLevel => _neededLevel;
+
+        public void SetIsEnabled(bool isEnabled)
         {
-            SceneManager.LoadScene(_neededLevel);
+            _isEnabled = isEnabled;
+        }
+
+        public void OnLevel()
+        {
+            if (_isEnabled)
+            {
+                SceneManager.LoadScene(_neededLevel);
+            }
         }
     }
 }

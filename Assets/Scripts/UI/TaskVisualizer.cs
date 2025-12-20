@@ -1,15 +1,19 @@
+using Spawners.ForCustomerSpawner;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TaskVisualizer : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private Image _image;
-    [SerializeField] private CustomerSpawner _customerSpawner;
-
-    public Color ImageColor => _image.color;
-
-    public void SetWantedColor(Color color)
+    public class TaskVisualizer : MonoBehaviour
     {
-        _image.color = color;
+        [SerializeField] private Image _image;
+        [SerializeField] private CustomerSpawner _customerSpawner;
+
+        public Color ImageColor => _image.color;
+
+        public void SetWantedColor(Color color)
+        {
+            _image.color = color;
+        }
     }
 }

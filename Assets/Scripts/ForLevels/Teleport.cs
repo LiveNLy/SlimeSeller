@@ -1,14 +1,18 @@
+using BasketsStuff;
 using UnityEngine;
 
-public class Teleport : MonoBehaviour
+namespace ForLevels
 {
-    [SerializeField] private Vector3 _toPostion;
-
-    private void OnTriggerEnter(Collider other)
+    public class Teleport : MonoBehaviour
     {
-        if (other.gameObject.TryGetComponent<Basket>(out Basket basket))
+        [SerializeField] private Vector3 _toPostion;
+
+        private void OnTriggerEnter(Collider other)
         {
-            basket.transform.localPosition = _toPostion;
+            if (other.gameObject.TryGetComponent<Basket>(out Basket basket))
+            {
+                basket.transform.localPosition = _toPostion;
+            }
         }
     }
 }

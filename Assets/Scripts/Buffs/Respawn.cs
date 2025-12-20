@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Interfaces;
 
-public class Respawn : Effect
+namespace Buffs
 {
-    private BasketSpawnerForRecordMode _spawner;
-
-    public override void SetTool(Tool spawner)
+    public class Respawn : BuffClick
     {
-        _spawner = (BasketSpawnerForRecordMode)spawner;
-    }
+        private ITool _spawner;
 
-    public override void ApplyEffect()
-    {
-        _spawner.Respawn();
+        public override void ApplyEffect()
+        {
+            _spawner.ApplyEffect(0);
+        }
+
+        public override void SetTool(ITool spawner)
+        {
+            _spawner = spawner;
+        }
     }
 }

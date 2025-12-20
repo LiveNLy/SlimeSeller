@@ -1,13 +1,16 @@
 using UnityEngine;
 
-public class MenuToMenu : MonoBehaviour 
+namespace UI
 {
-    [SerializeField] private SideMenu _fromMenu;
-    [SerializeField] private SideMenu _toMenu;
-
-    public void MenuToMenuTransition()
+    public class MenuToMenu : MonoBehaviour
     {
-        _toMenu.gameObject.SetActive(true);
-        _fromMenu.gameObject.SetActive(false);
+        [SerializeField] private SideMenu _fromMenu;
+        [SerializeField] private SideMenu _toMenu;
+
+        public void MenuToMenuTransition()
+        {
+            _toMenu.gameObject.SetActive(true);
+            _fromMenu.gameObject.SetActive(false);
+        }
     }
 }

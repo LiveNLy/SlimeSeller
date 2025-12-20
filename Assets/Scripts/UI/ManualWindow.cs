@@ -1,3 +1,6 @@
 using UnityEngine;
 
-public class ManualWindow : MonoBehaviour { }
+namespace UI
+{
+    public class ManualWindow : MonoBehaviour { }
+}

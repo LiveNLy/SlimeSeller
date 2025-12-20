@@ -1,8 +1,8 @@
-using UnityEngine;
-using YG;
-
-public interface ITimer
+namespace Interfaces
 {
-    public void DoConverce(float points);
-    public void RestartTimer();
+    public interface ITimer
+    {
+        public void DoConverce(float points);
+        public void RestartTimer();
+    }
 }

@@ -1,31 +1,35 @@
 using TMPro;
+using UI;
 using UnityEngine;
 
-public class CounterForLevels : MonoBehaviour
+namespace ForLevels
 {
-    [SerializeField] private int _standartOrdersCount;
-    [SerializeField] protected TextMeshProUGUI _text;
-    [SerializeField] private TimerForLevels _timer;
-
-    protected int _ordersCount;
-
-    public int StandartOrdersCount => _standartOrdersCount;
-    public int OrdersCount => _ordersCount;
-
-    public virtual void OnStart()
+    public class CounterForLevels : MonoBehaviour
     {
-        _ordersCount = 0;
-        _text.text = _ordersCount.ToString() + " из " + _standartOrdersCount;
-    }
+        [SerializeField] private int _standartOrdersCount;
+        [SerializeField] protected TextMeshProUGUI _text;
+        [SerializeField] private TimerForLevels _timer;
 
-    public virtual void AddScore()
-    {
-        _ordersCount++;
-        _text.text = _ordersCount.ToString() + " из " + _standartOrdersCount;
+        protected int _ordersCount;
 
-        if ( _ordersCount == _standartOrdersCount)
+        public int StandartOrdersCount => _standartOrdersCount;
+        public int OrdersCount => _ordersCount;
+
+        public virtual void OnStart()
         {
-            _timer.MakeWinScreen();
+            _ordersCount = 0;
+            _text.text = _ordersCount.ToString() + " из " + _standartOrdersCount;
+        }
+
+        public virtual void AddScore()
+        {
+            _ordersCount++;
+            _text.text = _ordersCount.ToString() + " из " + _standartOrdersCount;
+
+            if (_ordersCount == _standartOrdersCount)
+            {
+                _timer.MakeWinScreen();
+            }
         }
     }
 }

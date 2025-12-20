@@ -1,55 +1,60 @@
+using Interfaces;
+using Spawners.ForBasketSpawner;
+using Spawners.ForCustomerSpawner;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
+using Timescale;
 
-public class TimerForLevels : MonoBehaviour, ITimer
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI _textTimer;
-    [SerializeField] private BaseBasketSpawner _slimeSpawner;
-    [SerializeField] private CustomerSpawner _customerSpawner;
-    [SerializeField] private RestarWindow _winWindow;
-    [SerializeField] private float _standartTimerTime;
-    [SerializeField] private AudioSource _winSound;
-    [SerializeField] private Button _restartButton;
-
-    private float _timer;
-    private bool _isTimeEnd = false;
-
-    public float Timer => _timer;
-
-    private void Update()
+    public class TimerForLevels : MonoBehaviour, ITimer
     {
-        if (!_isTimeEnd)
+        [SerializeField] private TextMeshProUGUI _textTimer;
+        [SerializeField] private BaseBasketSpawner _slimeSpawner;
+        [SerializeField] private CustomerSpawner _customerSpawner;
+        [SerializeField] private RestarWindow _winWindow;
+        [SerializeField] private float _standartTimerTime;
+        [SerializeField] private AudioSource _winSound;
+        [SerializeField] private Button _restartButton;
+        [SerializeField] private TimescaleChanger _timescaler;
+
+        private float _timer;
+        private bool _isTimeEnd = false;
+
+        public float Timer => _timer;
+
+        private void Update()
         {
-            _timer += Time.deltaTime;
-            _textTimer.text = _timer.ToString("F0") + " " + "сек";
+            if (!_isTimeEnd)
+            {
+                _timer += Time.deltaTime;
+                _textTimer.text = _timer.ToString("F0") + " " + "сек";
+            }
         }
-    }
 
-    public void DoConverce(float points)
-    {
+        public void DoConverce(float points) { }
 
-    }
+        public void RestartTimer()
+        {
+            YG2.SaveProgress();
+            _isTimeEnd = false;
+            _timescaler.NormalizeTimescale();
+            _timer = _standartTimerTime;
+        }
 
-    public void RestartTimer()
-    {
-        YG2.SaveProgress();
-        _isTimeEnd = false;
-        Time.timeScale = 1f;
-        _timer = _standartTimerTime;
-    }
-
-    public void MakeWinScreen()
-    {
-        _slimeSpawner.RemoveBasketsOnLose();
-        _restartButton.gameObject.SetActive(false);
-        _customerSpawner.ChangeCustomerOnWin();
-        _winSound.Play();
-        _winWindow.gameObject.SetActive(true);
-        _winWindow.SetStats();
-        _isTimeEnd = true;
-        YG2.SaveProgress();
-        Time.timeScale = 0;
+        public void MakeWinScreen()
+        {
+            _slimeSpawner.RemoveBasketsOnLose();
+            _restartButton.gameObject.SetActive(false);
+            _customerSpawner.ChangeCustomerOnWin();
+            _winSound.Play();
+            _winWindow.gameObject.SetActive(true);
+            _winWindow.SetStats();
+            _isTimeEnd = true;
+            YG2.SaveProgress();
+            _timescaler.StopTimescale();
+        }
     }
 }

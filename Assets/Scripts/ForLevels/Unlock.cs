@@ -1,22 +1,26 @@
+using BasketsStuff;
 using UnityEngine;
 
-public class Unlock : MonoBehaviour
+namespace ForLevels
 {
-    [SerializeField] private Basket _lockedBasket;
-    [SerializeField] private SpriteRenderer _spriteRenderer;
-
-    private void OnTriggerEnter(Collider other)
+    public class Unlock : MonoBehaviour
     {
-        if (other.gameObject.TryGetComponent<Basket>(out Basket basket))
+        [SerializeField] private Basket _lockedBasket;
+        [SerializeField] private SpriteRenderer _spriteRenderer;
+
+        private void OnTriggerEnter(Collider other)
         {
-            _spriteRenderer.gameObject.SetActive(false);
-
-            if (_lockedBasket != null && _lockedBasket.IsBlocked == false)
+            if (other.gameObject.TryGetComponent<Basket>(out Basket basket))
             {
-                _lockedBasket.MakeMoveble();
-            }
+                _spriteRenderer.gameObject.SetActive(false);
 
-            gameObject.SetActive(false);
+                if (_lockedBasket != null && _lockedBasket.IsBlocked == false)
+                {
+                    _lockedBasket.MakeMoveble();
+                }
+
+                gameObject.SetActive(false);
+            }
         }
     }
 }

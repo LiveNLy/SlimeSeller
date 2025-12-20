@@ -566,7 +566,6 @@ MonoBehaviour:
   - {fileID: 4420643554098422857, guid: 930e68a4be72b364baa7661d80760d2f, type: 3}
   - {fileID: 3461972230193858629, guid: 96b602ef4b4cfc44d93b89d3dd430434, type: 3}
   _customerSound: {fileID: 803796734}
-  _counter: {fileID: 1106511306}
   _slimeSpawner: {fileID: 0}
   _orderCounter: {fileID: 0}
 --- !u!1 &76634211
@@ -7629,6 +7628,7 @@ MonoBehaviour:
   _standartTimerTime: 0
   _winSound: {fileID: 1554127219}
   _restartButton: {fileID: 1399421309}
+  _timescaler: {fileID: 1012701825}
 --- !u!114 &353206436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30534,7 +30534,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effectSound: {fileID: 2002139990}
   _doneSound: {fileID: 768648734}
-  _buffPanel: {fileID: 0}
   _gameCanvas: {fileID: 1329730485}
   _counterForLevels: {fileID: 1106511306}
   _customerSpawner: {fileID: 58394383}
@@ -36412,6 +36411,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6985333857372317176, guid: 1f761016c03a561418ff210aec563e01, type: 3}
   m_PrefabInstance: {fileID: 1001726106}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1012701824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1012701826}
+  - component: {fileID: 1012701825}
+  m_Layer: 5
+  m_Name: TimescaleChanger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1012701825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012701824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5972e34498a3e3f418877f09b04c031f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1012701826
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012701824}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 1.0400391, y: -0.2800293, z: -21.340088}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1016540799
 GameObject:
   m_ObjectHideFlags: 0
@@ -36858,6 +36901,7 @@ MonoBehaviour:
   _restartWindow: {fileID: 2056139924}
   _mainmenuAmbient: {fileID: 0}
   _scoreModeAmbient: {fileID: 0}
+  _timescaler: {fileID: 1012701825}
 --- !u!114 &1023152492
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52757,11 +52801,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1329730480}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba6015270ea3a14c824b73bbd3182c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0699654ed2834b74d92c6f88f288b4e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _pause: {fileID: 1023152491}
   _button: {fileID: 1329730482}
+  _timescaler: {fileID: 1012701825}
 --- !u!114 &1329730483
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116412,3 +116457,4 @@ SceneRoots:
   - {fileID: 848302826}
   - {fileID: 445054288}
   - {fileID: 1931108529}
+  - {fileID: 1012701826}

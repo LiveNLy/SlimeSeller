@@ -1,89 +1,93 @@
+using ForYandex;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
 
-public class LevelInfo : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private Image _doneImage;
-    [SerializeField] private Image _silverImage;
-    [SerializeField] private Image _goldImage;
-    [SerializeField] private Image _buttonImage;
-    [SerializeField] private Button _button;
-
-    private int _levelNumber;
-    private LevelChanger _changer;
-
-    private void Awake()
+    public class LevelInfo : MonoBehaviour
     {
-        _button = GetComponent<Button>();
-        _buttonImage = GetComponent<Image>();
-        _changer = GetComponent<LevelChanger>();
-        _levelNumber = _changer.NeededLevel;
-    }
+        [SerializeField] private Image _doneImage;
+        [SerializeField] private Image _silverImage;
+        [SerializeField] private Image _goldImage;
+        [SerializeField] private Image _buttonImage;
+        [SerializeField] private Button _button;
 
-    private void OnEnable()
-    {
-        int previousLevel = _levelNumber - 2;
+        private int _levelNumber;
+        private LevelChanger _changer;
 
-        if (previousLevel < 0)
+        private void Awake()
         {
-            previousLevel = 0;
+            _button = GetComponent<Button>();
+            _buttonImage = GetComponent<Image>();
+            _changer = GetComponent<LevelChanger>();
+            _levelNumber = _changer.NeededLevel;
         }
 
-        if (YG2.saves.GetLevelInfo(previousLevel) || previousLevel == _levelNumber - 1)
+        private void OnEnable()
         {
-            _changer.SetIsEnabled(true);
-            SetAlpha(1f);
-            ChangePressedButtonParam(Color.gray);
-        }
-        else if (!YG2.saves.GetLevelInfo(previousLevel))
-        {
-            _changer.SetIsEnabled(false);
-            SetAlpha(0.5f);
-            ChangePressedButtonParam(Color.red);
-        }
-    }
+            int previousLevel = _levelNumber - 2;
 
-    public void SetImage()
-    {
-        var images = GetComponentsInChildren<Image>(includeInactive: true);
+            if (previousLevel < 0)
+            {
+                previousLevel = 0;
+            }
 
-        if (images.Length > 1)
-        {
-            _doneImage = images[1];
-            _silverImage = images[2];
-            _goldImage = images[3];
+            if (YG2.saves.GetLevelInfo(previousLevel) || previousLevel == _levelNumber - 1)
+            {
+                _changer.SetIsEnabled(true);
+                SetAlpha(1f);
+                ChangePressedButtonParam(Color.gray);
+            }
+            else if (!YG2.saves.GetLevelInfo(previousLevel))
+            {
+                _changer.SetIsEnabled(false);
+                SetAlpha(0.5f);
+                ChangePressedButtonParam(Color.red);
+            }
         }
 
-        if (YG2.saves.GetLevelInfo(_levelNumber - 1))
+        public void SetImage()
         {
-            _doneImage.gameObject.SetActive(true);
+            var images = GetComponentsInChildren<Image>(includeInactive: true);
+
+            if (images.Length > 1)
+            {
+                _doneImage = images[1];
+                _silverImage = images[2];
+                _goldImage = images[3];
+            }
+
+            if (YG2.saves.GetLevelInfo(_levelNumber - 1))
+            {
+                _doneImage.gameObject.SetActive(true);
+            }
+
+            if (YG2.saves.LevelsStats[_levelNumber - 1] == "silver")
+            {
+                _silverImage.gameObject.SetActive(true);
+            }
+            else if (YG2.saves.LevelsStats[_levelNumber - 1] == "gold")
+            {
+                _silverImage.gameObject.SetActive(true);
+                _goldImage.gameObject.SetActive(true);
+            }
         }
 
-        if (YG2.saves.LevelsStats[_levelNumber - 1] == "silver")
+        private void ChangePressedButtonParam(Color color)
         {
-            _silverImage.gameObject.SetActive(true);
+            ColorBlock colorBlock = _button.colors;
+            colorBlock.pressedColor = color;
+            _button.colors = colorBlock;
         }
-        else if (YG2.saves.LevelsStats[_levelNumber - 1] == "gold")
+
+        public void SetAlpha(float alpha)
         {
-            _silverImage.gameObject.SetActive(true);
-            _goldImage.gameObject.SetActive(true);
+            Color currentColor = _buttonImage.color;
+            currentColor.a = Mathf.Clamp01(alpha);
+            _buttonImage.color = currentColor;
         }
-    }
-
-    private void ChangePressedButtonParam(Color color)
-    {
-        ColorBlock colorBlock = _button.colors;
-        colorBlock.pressedColor = color;
-        _button.colors = colorBlock;
-    }
-
-    public void SetAlpha(float alpha)
-    {
-        Color currentColor = _buttonImage.color;
-        currentColor.a = Mathf.Clamp01(alpha);
-        _buttonImage.color = currentColor;
     }
 }

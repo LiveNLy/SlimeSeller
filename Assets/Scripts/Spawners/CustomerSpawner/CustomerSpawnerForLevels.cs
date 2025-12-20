@@ -1,45 +1,58 @@
+using ForLevels;
+using Slimes;
+using Spawners.ForBasketSpawner;
 using UnityEngine;
 
-public class CustomerSpawnerForLevels : CustomerSpawner
+namespace Spawners
 {
-    private BasketSpawnerForLevels _slimeSpawnerForLevels;
-    private CounterForLevels _counter;
-
-    public override void SpawnCustomer()
+    namespace ForCustomerSpawner
     {
-        if (_spawnedCustomer != null)
+        public class CustomerSpawnerForLevels : CustomerSpawner
         {
-            Destroy(_spawnedCustomer.gameObject);
-            _spawnedCustomer = null;
-        }
+            private BasketSpawnerForLevels _slimeSpawnerForLevels;
+            private CounterForLevels _counter;
 
-        _spawnedCustomer = Instantiate(_customerPrefabs[Random.Range(0, _customerPrefabs.Count)], _spawnPosition.position, Quaternion.Euler(0, -90, 0), this.transform);
-        _spawnedCustomer.SetPosition(_positionToStay.position);
+            public override void SpawnCustomer()
+            {
+                if (_spawnedCustomer != null)
+                {
+                    Destroy(_spawnedCustomer.gameObject);
+                    _spawnedCustomer = null;
+                }
 
-        if (_slimeSpawnerForLevels.SpawnedSlimes.Count > 0)
-        {
-            _spawnedCustomer.SetWantedColor(_slimeSpawnerForLevels.SpawnedSlimes[0].GetColor());
-            _taskVisualizer.SetWantedColor(_spawnedCustomer.WantedColor);
-            _deliveryPoint.SetWantedColor(_slimeSpawnerForLevels.SpawnedSlimes[0].GetColor());
-        }
+                _spawnedCustomer = Instantiate(_customerPrefabs[Random.Range(0, _customerPrefabs.Count)],
+                    _spawnPosition.position,
+                    Quaternion.Euler(0, -90, 0),
+                    this.transform);
 
-        _spawnedCustomer.SetSound(_customerSound);
-        _spawnedCustomer.GoToPosition();
-    }
+                _spawnedCustomer.SetPosition(_positionToStay.position);
 
-    public void SetValues(BaseBasketSpawner spawner, CounterForLevels counter)
-    {
-        _slimeSpawnerForLevels = (BasketSpawnerForLevels)spawner;
-        _counter = counter;
-        _slimeSpawnerForLevels.Spawning += SpawnCustomer;
-    }
+                if (_slimeSpawnerForLevels.SpawnedSlimes.Count > 0)
+                {
+                    _spawnedCustomer.SetWantedColor(_slimeSpawnerForLevels.SpawnedSlimes[0].GetColor());
+                    _taskVisualizer.SetWantedColor(_spawnedCustomer.WantedColor);
+                    _deliveryPoint.SetWantedColor(_slimeSpawnerForLevels.SpawnedSlimes[0].GetColor());
+                }
 
-    protected override void RespawnCustomer(Slime slime)
-    {
-        if (_counter != null && _counter.OrdersCount != _counter.StandartOrdersCount)
-        {
-            _slimeSpawnerForLevels.DeleteSlimeFromList(slime);
-            SpawnCustomer();
+                _spawnedCustomer.SetSound(_customerSound);
+                _spawnedCustomer.GoToPosition();
+            }
+
+            public void SetValues(BaseBasketSpawner spawner, CounterForLevels counter)
+            {
+                _slimeSpawnerForLevels = (BasketSpawnerForLevels)spawner;
+                _counter = counter;
+                _slimeSpawnerForLevels.Spawning += SpawnCustomer;
+            }
+
+            protected override void RespawnCustomer(Slime slime)
+            {
+                if (_counter != null && _counter.OrdersCount != _counter.StandartOrdersCount)
+                {
+                    _slimeSpawnerForLevels.DeleteSlimeFromList(slime);
+                    SpawnCustomer();
+                }
+            }
         }
     }
 }

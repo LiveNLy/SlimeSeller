@@ -1,46 +1,48 @@
 using UnityEngine;
-using UnityEngine.UI;
 
-public class WinPanel : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private float fadeTime = 1f;
-
-    private float _currentAlpha;
-    private float _targetAlpha = 1f;
-    private bool _isFading = false;
-    private CanvasGroup _canvasGroup;
-
-    private void Start()
+    public class WinPanel : MonoBehaviour
     {
-        _canvasGroup = GetComponent<CanvasGroup>();
-    }
+        [SerializeField] private float fadeTime = 1f;
 
-    void Update()
-    {
-        if (_isFading)
+        private float _currentAlpha;
+        private float _targetAlpha = 1f;
+        private bool _isFading = false;
+        private CanvasGroup _canvasGroup;
+
+        private void Start()
         {
-            _currentAlpha = Mathf.MoveTowards(_currentAlpha, _targetAlpha, Time.unscaledDeltaTime / fadeTime);
-            _canvasGroup.alpha = _currentAlpha;
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
 
-            if (Mathf.Approximately(_currentAlpha, _targetAlpha))
+        private void Update()
+        {
+            if (_isFading)
             {
-                _isFading = false;
-                StartFadeOut();
+                _currentAlpha = Mathf.MoveTowards(_currentAlpha, _targetAlpha, Time.unscaledDeltaTime / fadeTime);
+                _canvasGroup.alpha = _currentAlpha;
+
+                if (Mathf.Approximately(_currentAlpha, _targetAlpha))
+                {
+                    _isFading = false;
+                    StartFadeOut();
+                }
             }
         }
-    }
 
-    public void StartFadeIn()
-    {
-        _targetAlpha = 1f;
-        _currentAlpha = _canvasGroup.alpha;
-        _isFading = true;
-    }
+        public void StartFadeIn()
+        {
+            _targetAlpha = 1f;
+            _currentAlpha = _canvasGroup.alpha;
+            _isFading = true;
+        }
 
-    public void StartFadeOut()
-    {
-        _targetAlpha = 0f;
-        _currentAlpha = _canvasGroup.alpha;
-        _isFading = true;
+        public void StartFadeOut()
+        {
+            _targetAlpha = 0f;
+            _currentAlpha = _canvasGroup.alpha;
+            _isFading = true;
+        }
     }
 }

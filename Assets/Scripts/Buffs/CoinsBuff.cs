@@ -1,18 +1,22 @@
+using Interfaces;
 using UnityEngine;
 
-public class CoinsBuff : Effect
+namespace Buffs
 {
-    private PlusCoins _coins;
-    private int _coinsToBeGiven;
-
-    public override void ApplyEffect()
+    public class CoinsBuff : BuffClick
     {
-        _coinsToBeGiven = Random.Range(10, 20);
-        _coins.AddCoins(_coinsToBeGiven);
-    }
+        private ITool _coins;
+        private int _coinsToBeGiven;
 
-    public override void SetTool(Tool coins)
-    {
-        _coins = (PlusCoins)coins;
+        public override void ApplyEffect()
+        {
+            _coinsToBeGiven = Random.Range(10, 20);
+            _coins.ApplyEffect(_coinsToBeGiven);
+        }
+
+        public override void SetTool(ITool coins)
+        {
+            _coins = coins;
+        }
     }
 }

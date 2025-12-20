@@ -1,24 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SondsVolumeSlider : MonoBehaviour
+namespace Sounds
 {
-    [SerializeField] private Slider _volumeSlider;
-    [SerializeField] private MainSoundOption _musicOption;
-
-    private void OnEnable()
+    public class SondsVolumeSlider : MonoBehaviour
     {
-        ChangeVolumeBetweenWindow(_musicOption.MusicVolume);
-        _volumeSlider.onValueChanged.AddListener(_musicOption.ChangeVolume);
-    }
+        [SerializeField] private Slider _volumeSlider;
+        [SerializeField] private MainSoundOption _musicOption;
 
-    private void OnDisable()
-    {
-        _volumeSlider.onValueChanged.RemoveListener(_musicOption.ChangeVolume);
-    }
+        private void OnEnable()
+        {
+            ChangeVolumeBetweenWindow(_musicOption.MusicVolume);
+            _volumeSlider.onValueChanged.AddListener(_musicOption.ChangeVolume);
+        }
 
-    private void ChangeVolumeBetweenWindow(float currentVolume)
-    {
-        _volumeSlider.value = currentVolume;
+        private void OnDisable()
+        {
+            _volumeSlider.onValueChanged.RemoveListener(_musicOption.ChangeVolume);
+        }
+
+        private void ChangeVolumeBetweenWindow(float currentVolume)
+        {
+            _volumeSlider.value = currentVolume;
+        }
     }
 }

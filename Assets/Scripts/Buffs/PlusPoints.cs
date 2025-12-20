@@ -1,20 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using Interfaces;
 using UnityEngine;
 
-public class PlusPoints : Effect
+namespace Buffs
 {
-    private Score _score;
-    private int _massivePoints;
-
-    public override void ApplyEffect()
+    public class PlusPoints : BuffClick
     {
-        _massivePoints = Random.Range(50, 80);
-        _score.AddScore(_massivePoints);
-    }
+        private ITool _score;
+        private int _massivePoints;
 
-    public override void SetTool(Tool score)
-    {
-        _score = (Score)score;
+        public override void ApplyEffect()
+        {
+            _massivePoints = Random.Range(50, 80);
+            _score.ApplyEffect(_massivePoints);
+        }
+
+        public override void SetTool(ITool score)
+        {
+            _score = score;
+        }
     }
 }

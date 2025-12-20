@@ -1,29 +1,37 @@
+using Interfaces;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class PlusCoins : Tool
+namespace UI
 {
-    [SerializeField] private TextMeshProUGUI _textStars;
-    [SerializeField] private TextMeshProUGUI _textScore;
-    [SerializeField] private Stars _stars;
-
-    private int _savedCoins;
-
-    public void AddCoins(int coins)
+    public class PlusCoins : MonoBehaviour, ITool
     {
-        _savedCoins += coins;
-    }
+        [SerializeField] private TextMeshProUGUI _textStars;
+        [SerializeField] private TextMeshProUGUI _textScore;
+        [SerializeField] private Stars _stars;
 
-    public void WritePlusCoinsNumber(int scoreNumber)
-    {
-        _textStars.text = "+" + _savedCoins;
-        _textScore.text = $"{scoreNumber}";
-        _stars.AddStars(_savedCoins);
-    }
+        private int _savedCoins;
 
-    public void ResetSavedCoinsNumber()
-    {
-        _savedCoins = 0;
+        public void AddCoins(int coins)
+        {
+            _savedCoins += coins;
+        }
+
+        public void WritePlusCoinsNumber(int scoreNumber)
+        {
+            _textStars.text = "+" + _savedCoins;
+            _textScore.text = $"{scoreNumber}";
+            _stars.AddStars(_savedCoins);
+        }
+
+        public void ResetSavedCoinsNumber()
+        {
+            _savedCoins = 0;
+        }
+
+        public void ApplyEffect(int number)
+        {
+            AddCoins(number);
+        }
     }
 }

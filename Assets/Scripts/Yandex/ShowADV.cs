@@ -1,31 +1,35 @@
+using UI;
 using UnityEngine;
 using YG;
 
-public class ShowADV : MonoBehaviour
+namespace ForYandex
 {
-    [SerializeField] private Stars _stars;
-
-    private int _starsRewardCount = 50;
-    private string _starsID = "stars";
-
-    public void ShowInterstitialADV()
+    public class ShowADV : MonoBehaviour
     {
-        YG2.InterstitialAdvShow();
-    }
+        [SerializeField] private Stars _stars;
 
-    public void ShowRewardedADV()
-    {
-        YG2.RewardedAdvShow(_starsID, StarReward);
-        YG2.onCloseRewardedAdv += SaveStars;
-    }
+        private int _starsRewardCount = 50;
+        private string _starsID = "stars";
 
-    private void SaveStars()
-    {
-        YG2.SaveProgress();
-    }
+        public void ShowInterstitialADV()
+        {
+            YG2.InterstitialAdvShow();
+        }
 
-    private void StarReward()
-    {
-        _stars.AddStars(_starsRewardCount);
+        public void ShowRewardedADV()
+        {
+            YG2.RewardedAdvShow(_starsID, StarReward);
+            YG2.onCloseRewardedAdv += SaveStars;
+        }
+
+        private void SaveStars()
+        {
+            YG2.SaveProgress();
+        }
+
+        private void StarReward()
+        {
+            _stars.AddStars(_starsRewardCount);
+        }
     }
 }

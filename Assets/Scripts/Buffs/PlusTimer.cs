@@ -1,19 +1,22 @@
+using Interfaces;
 using UnityEngine;
 
-
-public class PlusTimer : Effect
+namespace Buffs
 {
-    private float _effectPower = 10;
-    private ITimer _timer;
-
-    public override void ApplyEffect()
+    public class PlusTimer : BuffClick
     {
-        Debug.Log(_timer);
-        _timer.DoConverce(_effectPower);
-    }
+        private int _effectPower = 10;
+        private ITool _timer;
 
-    public override void SetTool(Tool timer)
-    {
-        _timer = (ITimer)timer;
+        public override void ApplyEffect()
+        {
+            Debug.Log(_timer);
+            _timer.ApplyEffect(_effectPower);
+        }
+
+        public override void SetTool(ITool timer)
+        {
+            _timer = timer;
+        }
     }
 }

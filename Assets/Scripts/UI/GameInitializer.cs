@@ -1,24 +1,28 @@
+using Spawners.ForBasketSpawner;
+using Spawners.ForCustomerSpawner;
 using UnityEngine;
-using YG;
 
-public class GameInitializer : MonoBehaviour
+namespace UI
 {
-    [SerializeField] private BaseBasketSpawner _slimeSpawner;
-    [SerializeField] private CustomerSpawner _customerSpawner;
-
-    private bool _firstOpen = false;
-
-    private void Start()
+    public class GameInitializer : MonoBehaviour
     {
-        _customerSpawner.SetValues(_slimeSpawner);
-        Restart();
-    }
+        [SerializeField] private BaseBasketSpawner _slimeSpawner;
+        [SerializeField] private CustomerSpawner _customerSpawner;
 
-    public void Restart()
-    {
-        if (_firstOpen)
-            _slimeSpawner.Respawn();
+        private bool _firstOpen = false;
 
-        _firstOpen = true;
+        private void Start()
+        {
+            _customerSpawner.SetValues(_slimeSpawner);
+            Restart();
+        }
+
+        public void Restart()
+        {
+            if (_firstOpen)
+                _slimeSpawner.Respawn();
+
+            _firstOpen = true;
+        }
     }
 }
