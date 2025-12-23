@@ -1,11 +1,10 @@
 using Interfaces;
-using Spawners.ForBasketSpawner;
-using Spawners.ForCustomerSpawner;
+using Spawners;
+using Timescale;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using YG;
-using Timescale;
 
 namespace UI
 {
@@ -30,7 +29,7 @@ namespace UI
             if (!_isTimeEnd)
             {
                 _timer += Time.deltaTime;
-                _textTimer.text = _timer.ToString("F0") + " " + "сек";
+                _textTimer.text = _timer.ToString("F0");
             }
         }
 

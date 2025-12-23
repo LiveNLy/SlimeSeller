@@ -1,5 +1,4 @@
-using Spawners.ForBasketSpawner;
-using Spawners.ForCustomerSpawner;
+using Spawners;
 using UnityEngine;
 
 namespace UI

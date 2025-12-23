@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Buffs;
-using Spawners.ForBasketSpawner;
+using Spawners;
 using UI;
 using UnityEngine;
 

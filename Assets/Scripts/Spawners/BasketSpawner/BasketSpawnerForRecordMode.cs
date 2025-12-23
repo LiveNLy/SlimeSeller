@@ -9,107 +9,103 @@ using Random = UnityEngine.Random;
 
 namespace Spawners
 {
-    namespace ForBasketSpawner
+    public class BasketSpawnerForRecordMode : BaseBasketSpawner, ISlimeSpawner, ITool
     {
-        public class BasketSpawnerForRecordMode : BaseBasketSpawner, ISlimeSpawner, ITool
+        [SerializeField] private Score _score;
+        [SerializeField] private PlusCoins _savedCoins;
+        [SerializeField] private int _pointsToRemoveCount;
+        [SerializeField] private TimerForScoreMode _timer;
+
+        private int _minRandomNumberToRemove = 8;
+        private int _maxRandomNumberToRemove = 12;
+        private List<SpawnPoint> _deletedPoints = new List<SpawnPoint>();
+
+        public new event Action Spawning;
+
+        public override void Spawn()
         {
-            [SerializeField] private Score _score;
-            [SerializeField] private PlusCoins _savedCoins;
-            [SerializeField] private int _pointsToRemoveCount;
-            [SerializeField] private TimerForScoreMode _timer;
+            SetRandomPointsToRemove();
 
-            private int _minRandomNumberToRemove = 8;
-            private int _maxRandomNumberToRemove = 12;
-            private List<SpawnPoint> _deletedPoints = new List<SpawnPoint>();
-
-            public new event Action Spawning;
-
-            public override void Spawn()
+            foreach (var spawnPoint in _spawnPoints)
             {
-                SetRandomPointsToRemove();
+                Vector3 correctSpawnPoint = spawnPoint.transform.position;
+                correctSpawnPoint.z -= _zCorrecter;
+                Basket newBasket = Instantiate(_basketPrefab, correctSpawnPoint, Quaternion.identity, this.transform);
+                _spawnedBasket.Add(newBasket);
 
-                foreach (var spawnPoint in _spawnPoints)
+                Renderer renderer = newBasket.GetSlime().GetComponent<Renderer>();
+
+                if (renderer != null)
                 {
-                    bool hasEffect = Random.Range(0f, 1f) < 0.1f;
-                    Vector3 correctSpawnPoint = spawnPoint.transform.position;
-                    correctSpawnPoint.z -= 0.5f;
-                    Basket newBasket = Instantiate(_basketPrefab, correctSpawnPoint, Quaternion.identity, this.transform);
-                    _spawnedBasket.Add(newBasket);
-
-                    Renderer renderer = newBasket.GetSlime().GetComponent<Renderer>();
-
-                    if (renderer != null)
-                    {
-                        Material newMaterial = new Material(renderer.material);
-                        newMaterial.color = _colors[Random.Range(0, _colors.Count)];
-                        renderer.material = newMaterial;
-                    }
-
-                    _spawnedSlimes.Add(newBasket.GetSlime());
+                    Material newMaterial = new Material(renderer.material);
+                    newMaterial.color = _colors[Random.Range(0, _colors.Count)];
+                    renderer.material = newMaterial;
                 }
 
-                Spawning?.Invoke();
-                ResetPointsCount();
+                _spawnedSlimes.Add(newBasket.GetSlime());
             }
 
-            public override bool DeleteSlimeFromList(Slime slime)
+            Spawning?.Invoke();
+            ResetPointsCount();
+        }
+
+        public override bool DeleteSlimeFromList(Slime slime)
+        {
+            _spawnedSlimes.Remove(slime);
+            _savedCoins.AddCoins(slime.Stars);
+            _score.AddScore(slime.ScorePoints);
+
+            if (_spawnedSlimes.Count == 0)
             {
-                _spawnedSlimes.Remove(slime);
-                _savedCoins.AddCoins(slime.Stars);
-                _score.AddScore(slime.ScorePoints);
-
-                if (_spawnedSlimes.Count == 0)
-                {
-                    Respawn();
-                    return false;
-                }
-
-                return true;
+                Respawn();
+                return false;
             }
 
-            public override void Respawn()
+            return true;
+        }
+
+        public override void Respawn()
+        {
+            foreach (Slime slime in _spawnedSlimes)
             {
-                foreach (Slime slime in _spawnedSlimes)
-                {
-                    Destroy(slime.gameObject);
-                }
-
-                foreach (Basket basket in _spawnedBasket)
-                {
-                    Destroy(basket.gameObject);
-                }
-
-                _spawnedBasket.Clear();
-                _spawnedSlimes.Clear();
-
-                SetPointsToRemoveCount();
-
-                Spawn();
+                Destroy(slime.gameObject);
             }
 
-            public void SetPointsToRemoveCount()
+            foreach (Basket basket in _spawnedBasket)
             {
-                _pointsToRemoveCount = Random.Range(_minRandomNumberToRemove, _maxRandomNumberToRemove);
+                Destroy(basket.gameObject);
             }
 
-            private void ResetPointsCount()
-            {
-                foreach (var point in _deletedPoints)
-                {
-                    _spawnPoints.Add(point);
-                }
+            _spawnedBasket.Clear();
+            _spawnedSlimes.Clear();
 
-                _deletedPoints.Clear();
+            SetPointsToRemoveCount();
+
+            Spawn();
+        }
+
+        public void SetPointsToRemoveCount()
+        {
+            _pointsToRemoveCount = Random.Range(_minRandomNumberToRemove, _maxRandomNumberToRemove);
+        }
+
+        private void ResetPointsCount()
+        {
+            foreach (var point in _deletedPoints)
+            {
+                _spawnPoints.Add(point);
             }
 
-            private void SetRandomPointsToRemove()
+            _deletedPoints.Clear();
+        }
+
+        private void SetRandomPointsToRemove()
+        {
+            for (int i = 0; i < _pointsToRemoveCount; i++)
             {
-                for (int i = 0; i < _pointsToRemoveCount; i++)
-                {
-                    int randomNumber = Random.Range(0, _spawnPoints.Count);
-                    _deletedPoints.Add(_spawnPoints[randomNumber]);
-                    _spawnPoints.RemoveAt(randomNumber);
-                }
+                int randomNumber = Random.Range(0, _spawnPoints.Count);
+                _deletedPoints.Add(_spawnPoints[randomNumber]);
+                _spawnPoints.RemoveAt(randomNumber);
             }
         }
     }

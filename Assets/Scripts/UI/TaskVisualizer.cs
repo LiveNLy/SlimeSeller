@@ -1,4 +1,4 @@
-using Spawners.ForCustomerSpawner;
+using Spawners;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Slimes;
-using Spawners.ForBasketSpawner;
+using Spawners;
 using UnityEngine;
 
 namespace BasketsStuff

@@ -17,8 +17,8 @@ namespace UI
                 _index = 0;
             }
 
-            transform.position = Vector3.MoveTowards(transform.position,
-                _pointsToMove[_index].transform.position, _speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(
+                transform.position,_pointsToMove[_index].transform.position, _speed * Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider other)

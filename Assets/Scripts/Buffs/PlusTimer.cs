@@ -5,7 +5,8 @@ namespace Buffs
 {
     public class PlusTimer : BuffClick
     {
-        private int _effectPower = 10;
+        private const int _effectPower = 10;
+
         private ITool _timer;
 
         public override void ApplyEffect()

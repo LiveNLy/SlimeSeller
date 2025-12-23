@@ -1,6 +1,6 @@
 using System;
-using UnityEngine;
 using Slimes;
+using UnityEngine;
 
 namespace Interfaces
 {
